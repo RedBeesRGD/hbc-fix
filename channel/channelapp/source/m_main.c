@@ -10,6 +10,7 @@
 #include "loader.h"
 #include "i18n.h"
 #include "panic.h"
+//#include <ogc/es.h>
 
 #include "m_main.h"
 
@@ -23,6 +24,7 @@ static bool bootmii_ios = false;
 static bool bootmii_is_installed(u64 title_id) {
 	u32 tmd_view_size;
 	u8 *tmdbuf;
+	struct _tmdview* tmdview;
 	bool ret;
 
 	if (ES_GetTMDViewSize(title_id, &tmd_view_size) < 0)
@@ -36,7 +38,7 @@ static bool bootmii_is_installed(u64 title_id) {
 
 	tmdbuf = pmemalign(32, 1024);
 
-	if (ES_GetTMDView(title_id, tmdbuf, tmd_view_size) < 0) {
+	if (ES_GetTMDView(title_id, tmdview, tmd_view_size) < 0) {
 		free(tmdbuf);
 		return false;
 	}

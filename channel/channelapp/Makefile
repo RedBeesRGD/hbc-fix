@@ -33,7 +33,7 @@ DIR_LIBS = \
 		$(DEVKITPRO)/libogc/lib/wii \
 		$(DEVKITPRO)/portlibs/ppc/lib
 
-LIBS = mxml freetype png bz2 z db fat wiiuse bte ogc m
+LIBS = mxml freetype brotlidec brotlicommon png bz2 z db fat wiiuse bte ogc m
 
 MACHDEP = -g -DGEKKO -mrvl -mcpu=750 -meabi -mhard-float
 CFLAGS = $(MACHDEP) -Os -Wall -DBASE_ADDR=$(BASE_ADDR) $(DIR_INCLUDES:%=-I%)
@@ -41,9 +41,9 @@ CFLAGS = $(MACHDEP) -Os -Wall -DBASE_ADDR=$(BASE_ADDR) $(DIR_INCLUDES:%=-I%)
 CFLAGS_STUB = $(MACHDEP) -O2 -Wall -DBASE_ADDR=$(BASE_ADDR) $(DIR_INCLUDES:%=-I%)
 ASFLAGS = -D_LANGUAGE_ASSEMBLY -DHW_RVL
 LDFLAGS_STUB = $(MACHDEP) -Wl,--section-start,.init=0x80001800 -nostartfiles -nodefaultlibs
-LDFLAGS_APP = $(MACHDEP) -specs=newrvl.spec -Wl,--section-start,.init=$(BASE_ADDR) \
+LDFLAGS_APP = $(MACHDEP) -Wl,--section-start,.init=$(BASE_ADDR) \
 	      $(DIR_LIBS:%=-L%) $(LIBS:%=-l%) -Wl,-Map,channelapp.map
-LDFLAGS_CHAN = $(MACHDEP) -specs=newrvl.spec -Wl,--section-start,.init=$(BASE_ADDR) -Wl,-e,_stub_start $(DIR_LIBS:%=-L%) $(LIBS:%=-l%) -Wl,-Map,channelapp_chan.map
+LDFLAGS_CHAN = $(MACHDEP) -Wl,--section-start,.init=$(BASE_ADDR) -Wl,-e,_stub_start $(DIR_LIBS:%=-L%) $(LIBS:%=-l%) -Wl,-Map,channelapp_chan.map
 
 FILES_STUB = $(wildcard $(DIR_STUB)/*.S) $(wildcard $(DIR_STUB)/*.c)
 FILES_STUB_OBJx = $(FILES_STUB:$(DIR_STUB)/%.S=$(DIR_BUILD)/%.o)
