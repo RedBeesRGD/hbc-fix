@@ -1,5 +1,5 @@
 jp=Homebrewチャンネル
-en=Homebrew Channel
+en=Open Homebrew Channel
 de=Homebrewkanal
 fr=Chaîne Homebrew
 sp=Canal Homebrew
