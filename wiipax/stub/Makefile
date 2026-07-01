@@ -27,7 +27,8 @@ endif
 endif
 
 ifeq ($(NDEBUG),1)
-DEFINES += -DNDEBUG
+#DEFINES += -DNDEBUG
+OBJS += exception.o exception_asm.o vsprintf.o gecko.o
 TARGET_DEBUG =
 else
 OBJS += exception.o exception_asm.o vsprintf.o gecko.o
