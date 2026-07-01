@@ -352,7 +352,7 @@ static bool _mount(int index) {
 											devices[index].device);
 
 	if (!devices[index].last_status) {
-		devices[index].device->shutdown();
+		devices[index].device->shutdown(devices[index].device);
 
 		return false;
 	}
@@ -407,7 +407,7 @@ static void *ae_func (void *arg) {
 		case AE_CMD_SCAN:
 			
 			if (device_active >= 0) {
-				if (!ta->umount && devices[device_active].device->isInserted())
+				if (!ta->umount && devices[device_active].device->isInserted(devices[device_active].device))
 					continue;
 
 				gprintf("device lost: %s\n", devices[device_active].name);
@@ -415,7 +415,7 @@ static void *ae_func (void *arg) {
 				ta->umount = false;
 
 				fatUnmount(devices[device_active].name);
-				devices[device_active].device->shutdown();
+				devices[device_active].device->shutdown(devices[device_active].device);
 				devices[device_active].last_status = false;
 				device_active = -1;
 
@@ -468,7 +468,7 @@ static void *ae_func (void *arg) {
 			for (i = 0; i < DEVICE_COUNT; ++i) {
 				if (i == device_active) {
 					ta->status[i] = devices[i].last_status =
-						devices[i].device->isInserted();
+						devices[i].device->isInserted(devices[i].device);
 
 					if (!ta->umount && !devices[i].last_status)
 						ta->umount = true;
@@ -477,24 +477,24 @@ static void *ae_func (void *arg) {
 				}
 
 				if (devices[i].last_status) {
-					if (!devices[i].device->isInserted()) {
+					if (!devices[i].device->isInserted(devices[i].device)) {
 						ta->status[i] = devices[i].last_status = false;
-						devices[i].device->shutdown();
+						devices[i].device->shutdown(devices[i].device);
 					}
 
 					continue;
 				}
 
-				if (!devices[i].device->startup()) {
+				if (!devices[i].device->startup(devices[i].device)) {
 					ta->status[i] = devices[i].last_status = false;
 					continue;
 				}
 
 				ta->status[i] = devices[i].last_status =
-					devices[i].device->isInserted();
+					devices[i].device->isInserted(devices[i].device);
 
 				if (!devices[i].last_status)
-					devices[i].device->shutdown();
+					devices[i].device->shutdown(devices[i].device);
 			}
 
 			continue;
@@ -578,7 +578,7 @@ void app_entry_deinit (void) {
 
 		if (device_active >= 0) {
 			fatUnmount(devices[device_active].name);
-			devices[device_active].device->shutdown();
+			devices[device_active].device->shutdown(devices[device_active].device);
 		}
 
 		USB_Deinitialize();

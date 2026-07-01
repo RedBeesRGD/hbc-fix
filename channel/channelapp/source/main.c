@@ -111,7 +111,7 @@ static int patch_ahbprot_reset(void)
 	}
 }
 
-static void reset_cb(u32 irq, void *ctx) {
+static void reset_cb() {
 #ifdef GDBSTUB
 	gdb = true;
 #else

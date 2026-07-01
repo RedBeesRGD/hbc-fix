@@ -1,8 +1,10 @@
 # HBC-Fix
 
-This is an attempt to make OHBC buildable on current library versions, and hopefully do some additional maintenance (libogc2 port??)
+This is an attempt to make OHBC buildable on current library versions, and hopefully do some additional maintenance
 
-seems to work as of 2026-07-01..
+Also it's using libogc2
+
+seems to work as of 2026-07-01..* Weird bugs and can't return to loader
 
 Changes have been made that can affect stability and stability of applications ran with HBC (messing with exceptions), don't use for anything important
 
