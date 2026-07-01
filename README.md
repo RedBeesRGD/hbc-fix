@@ -6,7 +6,6 @@ Also it's using libogc2
 
 seems to work as of 2026-07-01..* Weird bugs and can't return to loader
 
-Changes have been made that can affect stability and stability of applications ran with HBC (messing with exceptions), don't use for anything important
 
 # The Homebrew Channel
 
@@ -52,7 +51,6 @@ You can obtain binaries of those with
 Additionally, you'll need the following packages on your host machine:
 
 * pycryptodomex (for PyWii)
-_python2 and python2 pycryptodome specifically!_
 * libpng headers (libpng-dev)
 * gettext
 * sox
