@@ -106,9 +106,9 @@ void controls_scan (u32 *down, u32 *held, u32 *up) {
 
 	PAD_ScanPads ();
 
-	bd = PAD_ButtonsDown (0);
-	bh = PAD_ButtonsHeld (0);
-	bu = PAD_ButtonsUp (0);
+	bd = (u16) PAD_ButtonsDown (0);
+	bh = (u16) PAD_ButtonsHeld (0);
+	bu = (u16) PAD_ButtonsUp (0);
 
 	WPAD_ScanPads ();
 
